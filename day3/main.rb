@@ -31,12 +31,11 @@ class AnalyzeDiagnostics
   def calculate_ratings(&sort_callback)
     diagnostic_copy = diagnostic_report.clone
     ndx = 0
-    loop do
+    until diagnostic_copy.length == 1
       current_column = diagnostic_copy.transpose[ndx]
       bit_to_keep = sort_callback.call(current_column)
       diagnostic_copy.keep_if { |bit| bit[ndx] == bit_to_keep }
       ndx += 1
-      break if diagnostic_copy.length == 1
     end
     diagnostic_copy.join.to_i(2)
   end
@@ -57,4 +56,4 @@ analyzer = AnalyzeDiagnostics.new(ARGV[0])
 analyzer.calculate_power_consumption # -> 342954
 
 # Part 2
-analyzer.calculate_life_support # -> 5410338
+p analyzer.calculate_life_support # -> 5410338
