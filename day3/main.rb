@@ -56,4 +56,4 @@ analyzer = AnalyzeDiagnostics.new(ARGV[0])
 analyzer.calculate_power_consumption # -> 342954
 
 # Part 2
-p analyzer.calculate_life_support # -> 5410338
+analyzer.calculate_life_support # -> 5410338
