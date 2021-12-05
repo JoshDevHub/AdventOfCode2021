@@ -37,6 +37,8 @@ class BingoSubsystem
     winning_number * unmarked_sum
   end
 
+  private
+
   def mark_boards(number)
     boards.each do |board|
       board.each do |row|
