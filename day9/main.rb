@@ -6,7 +6,7 @@ class SmokeBasin
 
   def initialize(input)
     @coordinate_hash = {}
-    data = File.readlines(input).map { |element| element.chomp.chars }
+    data = File.readlines(input).map { |line| line.chomp.chars }
     data.each_with_index do |line, x|
       line.each_with_index do |number, y|
         coordinate_hash[x + y.i] = number.to_i unless number == '9'
