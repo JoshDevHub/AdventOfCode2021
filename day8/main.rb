@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# AoC Day 8
 class SevenSegmentSearch
   attr_reader :signal_out, :full_data
 
