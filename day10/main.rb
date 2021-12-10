@@ -48,11 +48,16 @@ class SyntaxChecker
     }
   end
 
+  def destructure_char_pair
+    [char_pair_map.values, char_pair_map.keys]
+  end
+
   def find_line_errors(line)
     open_memo = []
+    opening, closing = destructure_char_pair
     line.chars.each_with_object([]) do |char, errors|
-      open_memo << char if char_pair_map.values.include?(char)
-      if char_pair_map.keys.include?(char)
+      open_memo << char if opening.include?(char)
+      if closing.include?(char)
         errors << char unless open_memo[-1] == char_pair_map[char]
         open_memo.pop
       end
@@ -62,7 +67,7 @@ class SyntaxChecker
   def line_endings
     lines_to_complete.map do |line|
       open_memo = []
-      opening, closing = [char_pair_map.values, char_pair_map.keys]
+      opening, closing = destructure_char_pair
       line.chars.each do |char|
         open_memo << char if opening.include?(char)
         open_memo.pop if closing.include?(char)
