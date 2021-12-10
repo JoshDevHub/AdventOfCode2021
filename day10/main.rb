@@ -41,10 +41,10 @@ class SyntaxChecker
 
   def complete_line_score_map
     {
-      ')' => 1,
-      ']' => 2,
-      '}' => 3,
-      '>' => 4
+      '(' => 1,
+      '[' => 2,
+      '{' => 3,
+      '<' => 4
     }
   end
 
@@ -62,11 +62,12 @@ class SyntaxChecker
   def line_endings
     lines_to_complete.map do |line|
       open_memo = []
+      opening, closing = [char_pair_map.values, char_pair_map.keys]
       line.chars.each do |char|
-        open_memo << char if char_pair_map.values.include?(char)
-        open_memo.pop if char_pair_map.keys.include?(char)
+        open_memo << char if opening.include?(char)
+        open_memo.pop if closing.include?(char)
       end
-      open_memo.reverse.map { |char| char_pair_map.invert[char] }
+      open_memo.reverse
     end
   end
 
