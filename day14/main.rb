@@ -14,7 +14,7 @@ class ExtendedPolymerization
 
   def polymerize(steps)
     pairs = tally_pairs
-    chars = char_tally
+    chars = tally_chars
     steps.times do
       new_chars = chars.dup
       new_pairs = pairs.dup
@@ -37,7 +37,7 @@ class ExtendedPolymerization
     (insertions.keys + template_pairs).tally.transform_values { |v| v - 1 }
   end
 
-  def char_tally
+  def tally_chars
     (template + insertions.values.uniq).tally.transform_values { |v| v - 1 }
   end
 
