@@ -4,7 +4,7 @@
 class ExtendedPolymerization
   def initialize(input)
     data = File.read(input).split("\n\n")
-    @template = data[0]
+    @template = data[0].chars
     @insertions = {}
     data[1].split("\n").each do |insertion|
       k, v = insertion.split(' -> ')
@@ -31,14 +31,14 @@ class ExtendedPolymerization
 
   def tally_pairs
     template_pairs = []
-    template.chars[0..-2].each_with_index do |char, i|
+    template[0..-2].each_with_index do |char, i|
       template_pairs << char + template[i + 1]
     end
     (insertions.keys + template_pairs).tally.transform_values { |v| v - 1 }
   end
 
   def char_tally
-    (template.chars + insertions.values.uniq).tally.transform_values { |v| v - 1 }
+    (template + insertions.values.uniq).tally.transform_values { |v| v - 1 }
   end
 
   def pair_insertion(curr_pairs, new_pair, new_chars)
